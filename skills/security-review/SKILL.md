@@ -1,16 +1,18 @@
 ---
-name: security-and-hardening
-description: 'Hardens against vulnerabilities. Use when handling file uploads, path resolution, API authentication, rate limiting, SQL persistence, or external API integrations. Use when building any feature that accepts untrusted data, modifies CORS or auth config, or interacts with the filesystem.'
+name: security-review
+description: 'Static security review for file upload validation, path traversal risks, SQL parameterisation, API authentication, CORS configuration, rate limiting, external API trust boundaries, and dependency vulnerability assessment. Read-only — does not run scanning tools.'
 argument-hint: 'Feature, module, or endpoint to audit. Include scope: upload, path, auth, SQL, external API.'
 user-invocable: true
 disable-model-invocation: false
 ---
 
-# Security and Hardening
+# Security Review
 
 ## Overview
 
-Security-first development. Treat every upload, file path, and external API response as hostile until validated. Security is a constraint on every line of code that touches user data, filesystem access, or external systems — not a phase to add later.
+Security-first review. Treat every upload, file path, and external API response as hostile until validated. Security is a constraint on every line of code that touches user data, filesystem access, or external systems — not a phase to add later.
+
+This is a **static, read-only review**. It does not run scanning tools. For dependency vulnerability scanning, run `pip audit` or `safety check` manually outside this skill.
 
 ## When to Use
 
@@ -57,7 +59,7 @@ Security-first development. Treat every upload, file path, and external API resp
 
 ---
 
-## Project-Specific Threat Areas
+## Threat Areas
 
 ### 1. File Upload and Path Traversal
 
@@ -139,16 +141,10 @@ Before adding a new dependency:
 
 1. Does the existing stack already solve this?
 2. Is it actively maintained? (Check last commit date, open security advisories.)
-3. Does it have known vulnerabilities? (`pip audit` or `safety check`)
-4. What is the license? (Must be compatible with MIT.)
+3. Does it have known vulnerabilities? (Run `pip audit` or `safety check` manually.)
+4. What is the license? (Must be compatible with the project license.)
 
-Run before any release:
-
-```bash
-pip audit
-```
-
-Triage findings:
+Triage findings from `pip audit`:
 
 ```
 Critical / High + reachable in production  → fix immediately
@@ -193,27 +189,27 @@ Low                                        → fix during regular dependency upd
 - [ ] Sensitive details logged server-side only
 
 ### Dependencies
-- [ ] pip audit shows no critical or high reachable vulnerabilities
+- [ ] pip audit shows no critical or high reachable vulnerabilities (run manually)
 ```
 
 ---
 
-## Common Rationalizations
+## Output Format
 
-| Rationalization | Reality |
-|---|---|
-| "This is an internal tool, security doesn't matter" | Internal tools get compromised. Attackers target the weakest link. |
-| "We'll add security later" | Security retrofitting is 10× harder than building it in. |
-| "No one would try to exploit this" | Automated scanners will find it. Security by obscurity is not security. |
-| "The framework handles security" | Frameworks provide tools, not guarantees. You still need to use them correctly. |
+Return the security review checklist verdict first, then findings ordered by severity.
 
-## Red Flags
+Label every finding:
 
-- User-supplied paths used directly in file system access
-- SQL query strings built with f-strings or `%` formatting
-- Auth token check missing on any protected endpoint
-- CORS set to `*` with no token requirement
-- Upload content parsed before type/structure validation
-- External API response content inserted into SQL or rendered as HTML
-- Stack traces or file paths returned in error responses
-- Secrets present in any committed file
+- **Critical:** — exploitable vulnerability (path traversal, SQL injection, missing auth)
+- **High:** — misconfiguration with direct security impact (wildcard CORS, missing rate limit)
+- **Medium:** — defence-in-depth gap (missing validation layer, non-constant-time comparison)
+- **Low / Nit:** — hardening improvement with limited direct risk
+
+For each finding include:
+
+- Severity label
+- Vulnerable pattern with file reference and line context
+- Why it matters
+- Recommended fix
+
+If no findings are discovered, state that explicitly and list the areas validated.

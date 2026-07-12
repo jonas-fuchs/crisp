@@ -26,7 +26,7 @@ Use this skill when the code is failing and you need a disciplined debugging loo
 - Keep one active hypothesis at a time.
 - Avoid broad search once the controlling code path is identified.
 - If the failure is testable, prove the fix with the same check that failed.
-- For this repository, prefer `python -m pytest` over the bare `pytest` entrypoint.
+- Discover the repository's canonical test command — do not invent one.
 - If the symptom is slow runtime or high memory (not a correctness bug), switch to the `profiling` skill instead.
 
 ## Output Style

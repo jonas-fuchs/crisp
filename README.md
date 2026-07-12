@@ -1,92 +1,93 @@
 # CRISP — Copilot Research Infrastructure for Scientific Python
 
-**CRISP** is a personal AI workbench setup for VS Code and GitHub Copilot. It is built for developing scientific software in Python and follows a scrum-like workflow driven by `TODO.md` as a lightweight ticket system. It contains the custom instructions, agent definitions, and skills I use to tailor Copilot's behaviour to my workflow, including [graphify](https://github.com/Graphify-Labs/graphify) for codebase architecture analysis.
+VS Code Copilot customizations for scientific Python: instructions, agents, skills, prompts, and templates.
 
-> [!CAUTION]
-> This setup is primarily for personal use. Feel free to browse and borrow ideas, but it is not intended as a general-purpose distribution.
+## Quick Start
 
-## What's Included
-
-- **`copilot-instructions.md`** — Global coding instructions loaded into every Copilot session: scrum workflow, coding principles, security defaults, testing conventions, and project-specific notes.
-- **`agents/`** — Custom agent definitions (Builder, Planner, Reviewer, Security, Web, CI/CD, Docs) that implement a lightweight scrum lifecycle.
-- **`skills/`** — Domain-specific skill modules covering code review, testing, diagnosis, profiling, security hardening, sprint planning, architecture audits, and more. Includes the graphify skill for building and querying knowledge graphs of your codebase.
-
-## Installation
-
-1. **Copy the contents to your Copilot config directory.**
-
-   The default location for Copilot customisations in VS Code is `~/.copilot/`. If this repository is cloned elsewhere, copy it over:
-
-   ```bash
-   cp -r /path/to/this-repo/* ~/.copilot/
-   ```
-
-   On most systems `~/.copilot/` maps to `/home/<username>/.copilot/`.
-
-2. **Install graphify** (optional but recommended for architecture analysis):
-
-   ```bash
-   pip install graphifyy
-   ```
-
-3. **Restart VS Code** (or reload the window) so Copilot picks up the new instructions, agents, and skills.
-
-4. **Verify** by opening a chat session in VS Code — the custom instructions and agents should be available automatically.
-
-## Usage Protocol
-
-The system follows a lightweight scrum lifecycle with two checkpoints — planning and review.
-
-### 1. Planning (Planner agent)
-
-Start a session with the **Planner** agent. Describe the feature, bug, or task you want to work on. The Planner:
-
-- Asks clarifying questions if the request is underspecified.
-- Decomposes the work into tickets and writes them to `TODO.md` with backlog (`🔵`) or sprint (`🟠`) markers.
-- **Stops** and waits for you to review the plan.
-
-**Checkpoint 1 — your "go":** Review the tickets in `TODO.md`. When you're happy with the plan, say "go" to start implementation.
-
-### 2. Implementation (Builder agent)
-
-The **Builder** agent picks up sprint tickets one at a time and implements them using TDD (test-driven development):
-
-- Writes a failing test, then the minimal code to pass, then refactors.
-- Debugs issues using the diagnose skill when needed.
-- Profiles and optimises performance bottlenecks using the profiling skill when needed.
-- Marks the ticket as in-progress (`🟡`) while working, then as review (`🔍`) when done.
-- Hands off to the Reviewer.
-
-### 3. Review (Reviewer agent)
-
-The **Reviewer** agent performs a 5-axis review (correctness, readability, architecture, security, performance):
-
-- **Approve** → ticket marked done (`[x]`).
-- **Request changes** → ticket sent back to the Builder with specific findings.
-
-**Checkpoint 2 — review gate:** No work is considered complete until the Reviewer approves it.
-
-### Specialist Agents
-
-The following agents are available by delegation (not directly selectable):
-
-- **Security** — security audits and hardening.
-- **Web** — coordinated frontend/backend web work.
-- **CI/CD** — GitHub Actions workflow hardening.
-- **Docs** — public documentation review and updates.
-- **Researcher** — scientific literature research and bioinformatics pre-implementation reviews.
-
-### Typical Session Flow
-
-```
-You: "I need to add a variant annotation module"
-  → Planner: decomposes into tickets, writes TODO.md, waits for "go"
-You: "go"
-  → Builder: implements tickets with TDD, hands off to Reviewer
-  → Reviewer: reviews, approves or requests changes
-You: merge the approved work
+```bash
+./scripts/install.sh             # copy to ~/.copilot/
+./scripts/install.sh --link      # symlink (for active development)
+./scripts/install.sh --dry-run   # preview
+./scripts/install.sh --uninstall # remove
+python3 scripts/validate_customizations.py  # validate
 ```
 
-## License
+## Workflow
 
-Personal use only.
+```
+User request
+     │
+     ▼
+Grill (grill-me skill)          ← if ambiguous: ask 2-5 blocking questions, stop
+     │
+     ▼
+Plan (delivery-planning skill)  ← decompose into tickets with acceptance criteria
+     │
+     ▼  [Planning Gate: user says "go"]
+     │
+Build (Builder agent)           ← TDD, discovers canonical commands, hands off
+     │
+     ▼  [Review Gate: Scientific Reviewer approves]
+     │
+Done (TODO.md ticket → Done)
+```
+
+### Work Modes
+
+- **Discovery** — explore, prototype, tune. Skip planning ceremony. Open one TODO.md entry, go straight to Builder.
+- **Delivery** — production change with both gates enforced.
+
+## Instructions
+
+Always-on context, scoped by file type:
+
+| File | Applies to | Covers |
+|---|---|---|
+| `general.instructions.md` | all files | Workflow, change discipline, command discovery, security defaults |
+| `python.instructions.md` | `*.py` | Imports, module layout, type hints, dead code rules |
+| `tests.instructions.md` | `tests/**/*.py` | TDD cycle, test structure, mocking, anti-patterns |
+| `scientific.instructions.md` | `*.py`, `*.ipynb` | Units, shapes, dtypes, tolerances, validation independence, reproducibility |
+
+## Agents
+
+| Agent | Role |
+|---|---|
+| **Builder** | Implements tickets using TDD. Discovers test/build commands from project config. Hands off to Scientific Reviewer. Does not mark tickets done. |
+| **Scientific Reviewer** | Read-only review on six axes: scientific definition, units, numerical behaviour, validation independence, reproducibility, software quality. Returns APPROVE or CHANGES REQUIRED. |
+| **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |
+
+## Skills
+
+| Skill | Use when |
+|---|---|
+| `grill-me` | Task is underspecified — ask targeted questions before planning |
+| `delivery-planning` | Decompose a feature into tickets, manage TODO.md lifecycle |
+| `scientific-testing` | Write tests with TDD and independent scientific validation |
+| `scientific-validation` | Validate numerical computations against independent references |
+| `software-quality-audit` | 6-axis code review before merge |
+| `architecture-audit` | Review module boundaries, complexity, and coupling |
+| `security-review` | Static security checklist (read-only) |
+| `reproducibility-audit` | Audit stochastic reproducibility, seeds, provenance |
+| `diagnose` | Debug with reproduce → minimize → hypothesize → fix loop |
+| `profiling` | Measure performance, identify hot paths, optimise, re-measure |
+| `graphify` | Cross-module architecture analysis (manual only, forked context) |
+
+## Prompts
+
+| Command | Purpose |
+|---|---|
+| `/plan-change` | Plan a change: clarify, decompose, present tickets, wait for "go" |
+| `/review-change` | Review completed work: 6-axis audit, return verdict |
+| `/prepare-pr` | Summarize changes, run final validation, generate PR description |
+| `/reproduce-result` | Reproduce a computational result from recorded provenance |
+
+## Templates
+
+- **`SCIENTIFIC_CONTRACT.md`** — pre-implementation contract for numerical work: equations, units, shapes, tolerances, validation sources, stochastic policy, data provenance.
+- **`TODO.md`** — sprint planning file (Active / Ready / Next / Blocked / Done).
+
+## Validation
+
+`scripts/validate_customizations.py` checks 10 invariants: frontmatter parsing, skill-directory name match, agent handoff references, tool name validity, web access for research agents, markdown link resolution, skill description distinctness, instruction file conventions, install manifest integrity, and naming conventions.
+
+CI runs on every push and PR via `.github/workflows/validate.yml`.
