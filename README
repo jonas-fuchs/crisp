@@ -1,8 +1,9 @@
 # CRISP — Copilot Research Infrastructure for Scientific Python
 
-> **CRISP** is a personal AI workbench setup for VS Code and GitHub Copilot. It is built for developing scientific software in Python and follows a scrum-like workflow driven by `TODO.md` as a lightweight ticket system. It contains the custom instructions, agent definitions, and skills I use to tailor Copilot's behaviour to my workflow, including [graphify](https://github.com/Graphify-Labs/graphify) for codebase architecture analysis.
+**CRISP** is a personal AI workbench setup for VS Code and GitHub Copilot. It is built for developing scientific software in Python and follows a scrum-like workflow driven by `TODO.md` as a lightweight ticket system. It contains the custom instructions, agent definitions, and skills I use to tailor Copilot's behaviour to my workflow, including [graphify](https://github.com/Graphify-Labs/graphify) for codebase architecture analysis.
 
-> **Note:** This setup is primarily for personal use. Feel free to browse and borrow ideas, but it is not intended as a general-purpose distribution.
+> [!CAUTION]
+> This setup is primarily for personal use. Feel free to browse and borrow ideas, but it is not intended as a general-purpose distribution.
 
 ## What's Included
 
