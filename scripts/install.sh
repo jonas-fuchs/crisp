@@ -25,6 +25,7 @@ MANIFEST=(
     "instructions/tests.instructions.md:instructions/tests.instructions.md"
     "instructions/scientific.instructions.md:instructions/scientific.instructions.md"
     "agents/builder.agent.md:agents/builder.agent.md"
+    "agents/planner.agent.md:agents/planner.agent.md"
     "agents/scientific-reviewer.agent.md:agents/scientific-reviewer.agent.md"
     "agents/researcher.agent.md:agents/researcher.agent.md"
     "skills/scientific-testing/SKILL.md:skills/scientific-testing/SKILL.md"
@@ -38,10 +39,6 @@ MANIFEST=(
     "skills/diagnose/SKILL.md:skills/diagnose/SKILL.md"
     "skills/profiling/SKILL.md:skills/profiling/SKILL.md"
     "skills/graphify/SKILL.md:skills/graphify/SKILL.md"
-    "prompts/plan-change.prompt.md:prompts/plan-change.prompt.md"
-    "prompts/prepare-pr.prompt.md:prompts/prepare-pr.prompt.md"
-    "prompts/reproduce-result.prompt.md:prompts/reproduce-result.prompt.md"
-    "prompts/review-change.prompt.md:prompts/review-change.prompt.md"
     "templates/SCIENTIFIC_CONTRACT.md:templates/SCIENTIFIC_CONTRACT.md"
     "templates/TODO.md:templates/TODO.md"
 )
@@ -102,7 +99,7 @@ for entry in "${MANIFEST[@]}"; do
 
     if [[ ! -f "$source" ]]; then
         echo "  WARN: source missing: $source" >&2
-        ((skipped++))
+        ((skipped++)) || true
         continue
     fi
 
@@ -131,7 +128,7 @@ for entry in "${MANIFEST[@]}"; do
             cp "$source" "$target"
         fi
     fi
-    ((installed++))
+    ((installed++)) || true
 done
 
 echo "Done: $installed files $(${LINK} && echo 'linked' || echo 'copied'), $skipped skipped."

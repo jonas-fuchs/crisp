@@ -11,7 +11,6 @@ VS Code Copilot customizations for scientific Python: instructions, agents, skil
 ./scripts/install.sh --link      # symlink (for active development)
 ./scripts/install.sh --dry-run   # preview
 ./scripts/install.sh --uninstall # remove
-python3 scripts/validate_customizations.py  # validate
 ```
 
 ## Workflow
@@ -72,22 +71,7 @@ Always-on context, scoped by file type:
 | `profiling` | Measure performance, identify hot paths, optimise, re-measure |
 | `graphify` | Cross-module architecture analysis (manual only, forked context) |
 
-## Prompts
-
-| Command | Purpose |
-|---|---|
-| `/plan-change` | Plan a change: clarify, decompose, present tickets, wait for "go" |
-| `/review-change` | Review completed work: 6-axis audit, return verdict |
-| `/prepare-pr` | Summarize changes, run final validation, generate PR description |
-| `/reproduce-result` | Reproduce a computational result from recorded provenance |
-
 ## Templates
 
 - **`SCIENTIFIC_CONTRACT.md`** — pre-implementation contract for numerical work: equations, units, shapes, tolerances, validation sources, stochastic policy, data provenance.
-- **`TODO.md`** — sprint planning file (Active / Ready / Next / Blocked / Done).
-
-## Validation
-
-`scripts/validate_customizations.py` checks 10 invariants: frontmatter parsing, skill-directory name match, agent handoff references, tool name validity, web access for research agents, markdown link resolution, skill description distinctness, instruction file conventions, install manifest integrity, and naming conventions.
-
-CI runs on every push and PR via `.github/workflows/validate.yml`.
+- **`TODO.md`** — sprint planning file (Active / Ready / Next / Blocked / Review / Done).

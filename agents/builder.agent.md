@@ -37,7 +37,7 @@ You are the Builder for this repository. Your job is to take a single ticket, im
 
 ## When NOT to Use
 
-- Planning work (use the Planner agent or `/plan-change` prompt).
+- Planning work (use the Planner agent).
 - Review work (use Scientific Reviewer instead).
 - Scientific literature research or bioinformatics pre-implementation reviews (use Researcher instead).
 
