@@ -5,7 +5,7 @@ description: 'Plan a change or feature before implementation. Runs clarification
 
 # Plan a Change
 
-Use the `delivery-planning` skill to run this workflow.
+Run the **Planner agent** workflow, backed by the `delivery-planning` skill.
 
 ## Steps
 

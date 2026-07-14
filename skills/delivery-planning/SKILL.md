@@ -10,7 +10,7 @@ disable-model-invocation: false
 
 ## Overview
 
-This skill covers decomposition into tickets and TODO.md lifecycle management. For underspecified tasks, run `grill-me` first to resolve blocking ambiguity, then use this skill to decompose and plan.
+This skill covers decomposition into tickets and TODO.md lifecycle management. It is the backing procedure for the **Planner agent** and the `/plan-change` prompt. For underspecified tasks, run `grill-me` first to resolve blocking ambiguity, then use this skill to decompose and plan.
 
 ## When to Use
 

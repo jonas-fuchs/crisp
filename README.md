@@ -1,5 +1,7 @@
 # CRISP — Copilot Research Infrastructure for Scientific Python
 
+> **Personal use only.** This repository contains my personal Copilot configuration — instructions, agents, skills, and prompts tuned for my scientific Python workflow. It is not a general-purpose framework and is not intended for external use or distribution.
+
 VS Code Copilot customizations for scientific Python: instructions, agents, skills, prompts, and templates.
 
 ## Quick Start
@@ -18,14 +20,11 @@ python3 scripts/validate_customizations.py  # validate
 User request
      │
      ▼
-Grill (grill-me skill)          ← if ambiguous: ask 2-5 blocking questions, stop
-     │
-     ▼
-Plan (delivery-planning skill)  ← decompose into tickets with acceptance criteria
+Planner agent                   ← clarify, grill-me if needed, decompose, write TODO.md
      │
      ▼  [Planning Gate: user says "go"]
      │
-Build (Builder agent)           ← TDD, discovers canonical commands, hands off
+Builder agent                   ← TDD, discovers canonical commands, hands off
      │
      ▼  [Review Gate: Scientific Reviewer approves]
      │
@@ -52,6 +51,7 @@ Always-on context, scoped by file type:
 
 | Agent | Role |
 |---|---|
+| **Planner** | Clarifies requests, runs grill-me when needed, decomposes into tickets, writes TODO.md, enforces the planning gate. Hands off to Builder on "go". Does not implement. |
 | **Builder** | Implements tickets using TDD. Discovers test/build commands from project config. Hands off to Scientific Reviewer. Does not mark tickets done. |
 | **Scientific Reviewer** | Read-only review on six axes: scientific definition, units, numerical behaviour, validation independence, reproducibility, software quality. Returns APPROVE or CHANGES REQUIRED. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |

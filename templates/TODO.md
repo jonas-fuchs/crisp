@@ -26,6 +26,12 @@
 <!-- Marker: ⛔ -->
 <!-- - [ ] ⛔ Title — description; blocked on: [reason] -->
 
+## Review
+
+<!-- Implementation complete, awaiting Scientific Reviewer verdict. -->
+<!-- Marker: 🔍 -->
+<!-- - [ ] 🔍 Title — description; affected modules in parentheses -->
+
 ## Done
 
 <!-- Completed and reviewed tickets. Move to TODO-archive.md when this section exceeds ~20 items. -->
