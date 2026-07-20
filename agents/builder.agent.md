@@ -1,10 +1,10 @@
 ---
 description: "Use when a ticket needs implementation. Takes a single ticket with clear acceptance criteria, implements using TDD, validates, then hands off to Scientific Reviewer. Escalates to specialists when needed."
 name: "Builder"
-tools: [read, search, edit, execute, todos, agent]
+tools: [read, search, edit, execute, agent]
 agents: [Researcher]
 argument-hint: "Ticket description, affected modules, acceptance criteria, and any constraints."
-user-invocable: true
+user-invocable: false
 handoffs:
   - label: Review change
     agent: Scientific Reviewer

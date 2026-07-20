@@ -52,9 +52,9 @@ Always-on context, scoped by file type:
 
 | Agent | Role |
 |---|---|
-| **Planner** | Clarifies requests, runs grill-me when needed, decomposes into tickets, writes TODO.md, enforces the planning gate. Hands off to Builder on "go". Does not implement. |
-| **Builder** | Implements planned tickets using TDD. Discovers test/build commands from project config, moves tickets to Review, and hands off to Scientific Reviewer. |
-| **Scientific Reviewer** | Reviews six axes: scientific definition, units, numerical behaviour, validation independence, reproducibility, software quality. On APPROVE, restrictively moves only the reviewed ticket from Review to Done in `TODO.md`. |
+| **Planner** | The public workflow entry point. Clarifies requests, runs grill-me when needed, decomposes into tickets, writes TODO.md, enforces the planning gate, and hands off to Builder on "go". Does not implement. |
+| **Builder** | Invoked by Planner. Implements planned tickets using TDD, discovers test/build commands, moves tickets to Review, and hands off to Scientific Reviewer. |
+| **Scientific Reviewer** | Invoked by Builder. Reviews six axes and, on APPROVE, restrictively moves the uniquely matched reviewed ticket from Review to Done in `TODO.md`. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |
 
 ## Skills

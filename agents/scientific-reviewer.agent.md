@@ -3,7 +3,7 @@ description: "Use when reviewing completed work before merge. Conducts scientifi
 name: "Scientific Reviewer"
 tools: [read, search, edit, execute, agent]
 argument-hint: "Ticket description, files changed, and implementation summary to review."
-user-invocable: true
+user-invocable: false
 handoffs:
   - label: Fix substantiated findings
     agent: Builder
@@ -142,7 +142,8 @@ Every Critical and Required finding must include a concrete fix recommendation.
 ## Constraints
 
 - Do not edit implementation files, tests, documentation, configuration, or any file other than `TODO.md`.
-- On **APPROVE** only, make one restrictive `TODO.md` edit: move the exact ticket under review from Review (`- [ ] 🔍`) to Done (`- [x] ✅`) and record the completion month/year using the existing ticket format.
+- Before approving, verify that exactly one Review ticket matches the title and description supplied for this review. If no ticket or multiple tickets match, return CHANGES REQUIRED and do not edit `TODO.md`.
+- On **APPROVE** only, make one restrictive `TODO.md` edit: move that uniquely matched ticket from Review (`- [ ] 🔍`) to Done (`- [x] ✅`) and record the completion month/year using the existing ticket format.
 - Do not create, remove, reprioritize, rewrite, or otherwise modify tickets. Do not change acceptance criteria, ticket descriptions, or any ticket other than the exact reviewed ticket.
 - On **CHANGES REQUIRED**, do not edit `TODO.md`; return findings so the Builder can move the ticket back to Active and address them.
 - Do not give broad style-only feedback unless it impacts correctness, clarity, or maintainability.

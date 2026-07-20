@@ -1,7 +1,7 @@
 ---
-description: "Use when a task needs planning before implementation. Clarifies the request (via grill-me when needed), decomposes it into tickets, writes them to TODO.md, then presents the plan and waits for user approval before handing off to Builder."
+description: "Use as the public entry point for a task needing planning before implementation. Clarifies the request (via grill-me when needed), decomposes it into tickets, writes them to TODO.md, then presents the plan and waits for user approval before handing off to Builder."
 name: "Planner"
-tools: [read, search, edit, todos]
+tools: [read, search, edit]
 argument-hint: "Feature request or task description. Optionally specify Discovery or Delivery mode."
 user-invocable: true
 handoffs:

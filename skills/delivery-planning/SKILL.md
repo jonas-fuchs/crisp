@@ -62,6 +62,9 @@ The planning file is the single source of truth for work status. It has six sect
 ## Blocked
 - [ ] ⛔ Ticket title — description and what it's blocked on
 
+## Review
+- [ ] 🔍 Ticket title — implementation complete, awaiting Scientific Reviewer verdict
+
 ## Done
 - [x] ✅ Ticket title — completed date (month/year)
 ```
@@ -115,7 +118,7 @@ For the Ready section, add acceptance criteria below the ticket line:
 - Each ticket has clear acceptance criteria.
 - The Builder does not mark tickets Done. On APPROVE, the Scientific Reviewer alone moves the exact reviewed ticket from Review to Done.
 - If a feature is removed from the codebase, remove its tickets.
-- Update TODO.md in the same change as the implementation.
+- Update TODO.md in the same PR or work item as the related implementation.
 
 ---
 
@@ -166,7 +169,8 @@ When work progresses, update the marker on the ticket line:
 
 | Action | Marker change |
 |---|---|
-| Start working | 🔵→🟠 (move to Active section) |
+| Prioritize | 🔵→🟠 (move to Ready section) |
+| Start working | 🟠→🟡 (move to Active section) |
 | Implementation complete | 🟡→🔍 (mark as in-review) |
 | Reviewer approves | Scientific Reviewer moves 🔍→✅ (move to Done section) |
 | Reviewer requests changes | 🔍→🟡 (back to Active) |
