@@ -10,7 +10,7 @@ disable-model-invocation: false
 
 ## Overview
 
-This skill covers decomposition into tickets and TODO.md lifecycle management. It is the backing procedure for the **Planner agent**. For underspecified tasks, run `grill-me` first to resolve blocking ambiguity, then use this skill to decompose and plan.
+This skill covers decomposition into tickets and TODO.md lifecycle management. It is the backing procedure for the **Planner agent** and defines the mandatory lifecycle when the CRISP custom agents are used. For underspecified tasks, run `grill-me` first to resolve blocking ambiguity, then use this skill to decompose and plan.
 
 ## When to Use
 
@@ -45,7 +45,7 @@ Use when the goal is a production deliverable with clear requirements.
 
 ## TODO.md Structure
 
-The planning file is the single source of truth for work status. It has three sections:
+The planning file is the single source of truth for work status. It has six sections:
 
 ```markdown
 # TODO
@@ -113,7 +113,7 @@ For the Ready section, add acceptance criteria below the ticket line:
 
 - One ticket = one self-contained change.
 - Each ticket has clear acceptance criteria.
-- The Builder does not mark tickets Done — only the Reviewer's approval triggers the Done transition.
+- The Builder does not mark tickets Done. On APPROVE, the Scientific Reviewer alone moves the exact reviewed ticket from Review to Done.
 - If a feature is removed from the codebase, remove its tickets.
 - Update TODO.md in the same change as the implementation.
 
@@ -168,7 +168,7 @@ When work progresses, update the marker on the ticket line:
 |---|---|
 | Start working | 🔵→🟠 (move to Active section) |
 | Implementation complete | 🟡→🔍 (mark as in-review) |
-| Reviewer approves | 🔍→✅ (move to Done section) |
+| Reviewer approves | Scientific Reviewer moves 🔍→✅ (move to Done section) |
 | Reviewer requests changes | 🔍→🟡 (back to Active) |
 | Blocked | any→⛔ (move to Blocked section, note the blocker) |
 

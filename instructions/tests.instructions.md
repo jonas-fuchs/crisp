@@ -8,7 +8,7 @@ applyTo: "**/tests/**/*.py"
 
 ## TDD Cycle
 
-Delivery work requires tests and validation:
+For Builder-led Delivery work, use the full red-green-refactor cycle:
 
 ```
 RED: Write a failing test that describes the desired behaviour
@@ -21,6 +21,8 @@ REFACTOR: Clean up the implementation — tests must still pass
 ```
 
 Discovery work may begin with characterization, experiments, or reference construction — it is not forced through the TDD cycle until the expected behaviour is understood.
+
+In normal Copilot agent mode, use a test strategy proportionate to the risk. Apply this full cycle when the user requests TDD or the behaviour change warrants it; trivial, low-risk edits are not required to begin with a failing test, but must still receive an appropriate focused check.
 
 ### Bug Fixes (Prove-It Pattern)
 

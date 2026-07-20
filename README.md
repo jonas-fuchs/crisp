@@ -32,8 +32,10 @@ Done (TODO.md ticket → Done)
 
 ### Work Modes
 
-- **Discovery** — explore, prototype, tune. Skip planning ceremony. Open one TODO.md entry, go straight to Builder.
-- **Delivery** — production change with both gates enforced.
+- **Discovery** — explore, prototype, tune. Skip planning ceremony. Open one TODO.md entry, then go to Builder.
+- **Delivery** — production change with both gates enforced when using the CRISP custom agents.
+
+In normal Copilot agent mode, apply planning, tests, and validation proportionately to the task. Formal TDD and the CRISP ticket/review workflow are used when explicitly requested or when the change warrants that rigor; they are not mandatory for trivial, low-risk edits.
 
 ## Instructions
 
@@ -51,8 +53,8 @@ Always-on context, scoped by file type:
 | Agent | Role |
 |---|---|
 | **Planner** | Clarifies requests, runs grill-me when needed, decomposes into tickets, writes TODO.md, enforces the planning gate. Hands off to Builder on "go". Does not implement. |
-| **Builder** | Implements tickets using TDD. Discovers test/build commands from project config. Hands off to Scientific Reviewer. Does not mark tickets done. |
-| **Scientific Reviewer** | Read-only review on six axes: scientific definition, units, numerical behaviour, validation independence, reproducibility, software quality. Returns APPROVE or CHANGES REQUIRED. |
+| **Builder** | Implements planned tickets using TDD. Discovers test/build commands from project config, moves tickets to Review, and hands off to Scientific Reviewer. |
+| **Scientific Reviewer** | Reviews six axes: scientific definition, units, numerical behaviour, validation independence, reproducibility, software quality. On APPROVE, restrictively moves only the reviewed ticket from Review to Done in `TODO.md`. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |
 
 ## Skills

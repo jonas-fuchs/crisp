@@ -104,7 +104,7 @@ Pass the first Ready ticket to the Builder agent.
 ## Rules
 
 - Do not implement code.
-- Do not mark tickets Done — that is the Builder's responsibility after Scientific Reviewer approval.
+- Do not mark tickets Done — the Scientific Reviewer performs that transition after approval.
 - Do not skip the planning gate in Delivery mode — even if the user seems impatient.
 - One ticket = one logical change. Do not bundle unrelated work.
 - Keep acceptance criteria measurable: "function returns X for input Y" not "it works correctly".

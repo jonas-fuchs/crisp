@@ -12,20 +12,26 @@ These invariants apply to all work in every project. Language- and task-specific
 
 ## Workflow
 
-CRISP follows a two-gate workflow: Plan → Build → Review.
+CRISP custom agents follow a two-gate workflow: Plan → Build → Review.
 
 ```
 Plan ──→ user "go" ──→ Build ──→ Scientific Review ──→ done | changes required
 ```
 
+### Scope
+
+The gates below are mandatory whenever the Planner, Builder, or Scientific Reviewer custom agent is invoked, directly or through a handoff. Their responsibilities form one workflow: Planner → Builder → Scientific Reviewer.
+
+They do not impose a ticket ceremony, formal TDD cycle, or review handoff on normal Copilot agent mode. In normal mode, choose planning, tests, and validation proportionately to the change. Use TDD when the user requests it or when the change is substantive enough to benefit from it; trivial, low-risk edits may use a lighter validation check.
+
 ### Gates
 
-1. **Planning gate**: The plan is presented and stops. The user reviews and says "go" before implementation starts. Bypass only when the user explicitly says "just do it" or the work is exploratory (algorithm tuning, prototyping).
-2. **Review gate**: Never bypassed. All changes that will be merged must pass Scientific Review.
+1. **Planning gate**: In Delivery mode, the Planner presents the plan and stops. The user reviews and says "go" before the Builder begins. Discovery work may skip this gate.
+2. **Review gate**: The Builder hands completed work to the Scientific Reviewer. The Reviewer approves it before moving the exact reviewed ticket from Review to Done in `TODO.md`.
 
 ### Work Modes
 
-- **Discovery**: question → hypothesis → experiment → evidence → decision. May begin with characterization, experiments, or reference construction. Not forced through TDD or ticket ceremony.
+- **Discovery**: question → hypothesis → experiment → evidence → decision. May begin with characterization, experiments, or reference construction. It is not forced through TDD or ticket ceremony.
 - **Delivery**: plan → build → scientific review → done. Requires a measurable acceptance condition and an independent validation approach before starting.
 
 ### TODO.md
