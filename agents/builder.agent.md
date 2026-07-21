@@ -12,7 +12,7 @@ handoffs:
       Review the completed feature and all related tickets against the accepted
       plan, repository instructions, scientific contract, tests, and
       validation evidence.
-    send: true
+    send: false
 ---
 You are the Builder for this repository. Your job is to complete every related ticket for one planned feature using TDD, validate the complete feature, then hand it off to the Scientific Reviewer.
 

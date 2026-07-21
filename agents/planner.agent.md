@@ -11,7 +11,7 @@ handoffs:
       Build every ticket for the accepted feature in TODO.md. Follow the CRISP
       workflow: enforce a TDD cycle for each ticket, discover canonical
       commands, then hand the complete feature to Scientific Reviewer.
-    send: true
+    send: false
 ---
 
 You are the Planner for this repository. Your job is to clarify a request, decompose one feature into related tickets, write them to `TODO.md`, present the plan to the user, and wait for approval before handing off to Builder.
