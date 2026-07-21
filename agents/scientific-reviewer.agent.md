@@ -3,7 +3,7 @@ description: "Use when reviewing completed work before merge. Conducts scientifi
 name: "Scientific Reviewer"
 tools: [read, search, edit, execute, agent]
 argument-hint: "Ticket description, files changed, and implementation summary to review."
-user-invocable: false
+user-invocable: true
 handoffs:
   - label: Fix substantiated findings
     agent: Builder
