@@ -12,7 +12,7 @@ These invariants apply to all work in every project. Language- and task-specific
 
 ## Workflow
 
-CRISP custom agents follow a two-gate workflow: Plan → Build → Review.
+CRISP custom agents follow a two-gate, feature-level workflow: Plan → Build → Review.
 
 ```
 Plan ──→ user "go" ──→ Build ──→ Scientific Review ──→ done | changes required
@@ -27,7 +27,7 @@ They do not impose a ticket ceremony, formal TDD cycle, or review handoff on nor
 ### Gates
 
 1. **Planning gate**: In Delivery mode, the Planner presents the plan and stops. The user reviews and says "go" before the Builder begins. Discovery work may skip this gate.
-2. **Review gate**: The Builder hands completed work to the Scientific Reviewer. The Reviewer approves it before moving the exact reviewed ticket from Review to Done in `TODO.md`.
+2. **Review gate**: The Builder completes every ticket for the planned feature, then hands the complete feature to the Scientific Reviewer. The Reviewer approves it before moving the complete related ticket set from Review to Done in `TODO.md`.
 
 ### Work Modes
 
@@ -44,6 +44,8 @@ They do not impose a ticket ceremony, formal TDD cycle, or review handoff on nor
 ## Next
 ## Blocked
 ```
+
+For Delivery work, every ticket belonging to the same feature must use the identical, unique `Feature: <name>` tag. The Builder works the complete feature ticket set under TDD before review; the Reviewer reviews and approves or rejects that set together.
 
 Archive completed work into `docs/plans/`, GitHub issues, `CHANGELOG.md`, or `docs/archive/`. Git history preserves previous versions — do not accumulate completed items indefinitely.
 

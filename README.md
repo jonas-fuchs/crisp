@@ -23,11 +23,11 @@ Planner agent                   ← clarify, grill-me if needed, decompose, writ
      │
      ▼  [Planning Gate: user says "go"]
      │
-Builder agent                   ← TDD, discovers canonical commands, hands off
+Builder agent                   ← completes related feature tickets with TDD
      │
-     ▼  [Review Gate: Scientific Reviewer approves]
+     ▼  [Review Gate: Scientific Reviewer reviews the complete feature]
      │
-Done (TODO.md ticket → Done)
+Done (TODO.md feature ticket set → Done)
 ```
 
 ### Work Modes
@@ -52,9 +52,9 @@ Always-on context, scoped by file type:
 
 | Agent | Role |
 |---|---|
-| **Planner** | The public workflow entry point. Clarifies requests, runs grill-me when needed, decomposes into tickets, writes TODO.md, enforces the planning gate, and hands off to Builder on "go". Does not implement. |
-| **Builder** | Invoked by Planner. Implements planned tickets using TDD, discovers test/build commands, moves tickets to Review, and hands off to Scientific Reviewer. |
-| **Scientific Reviewer** | Invoked by Builder. Reviews six axes and, on APPROVE, restrictively moves the uniquely matched reviewed ticket from Review to Done in `TODO.md`. |
+| **Planner** | The public workflow entry point. Clarifies requests, decomposes one feature into related tickets with a shared unique `Feature: <name>` tag, writes TODO.md, enforces the planning gate, and hands the feature to Builder on "go". Does not implement. |
+| **Builder** | Invoked by Planner. Completes every related feature ticket using an enforced TDD cycle, discovers test/build commands, moves the feature ticket set to Review, and hands the complete feature to Scientific Reviewer. |
+| **Scientific Reviewer** | Invoked by Builder. Reviews the complete feature across six axes and, on APPROVE, restrictively moves the uniquely matched reviewed feature ticket set from Review to Done in `TODO.md`. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |
 
 ## Skills

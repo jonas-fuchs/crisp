@@ -10,7 +10,7 @@ disable-model-invocation: false
 
 ## Overview
 
-This skill covers decomposition into tickets and TODO.md lifecycle management. It is the backing procedure for the **Planner agent** and defines the mandatory lifecycle when the CRISP custom agents are used. For underspecified tasks, run `grill-me` first to resolve blocking ambiguity, then use this skill to decompose and plan.
+This skill covers decomposition of one feature into related tickets and TODO.md lifecycle management. It is the backing procedure for the **Planner agent** and defines the mandatory lifecycle when the CRISP custom agents are used. For underspecified tasks, run `grill-me` first to resolve blocking ambiguity, then use this skill to decompose and plan.
 
 ## When to Use
 
@@ -37,9 +37,9 @@ Use when the goal is exploration, prototyping, or trying algorithms where the ou
 
 Use when the goal is a production deliverable with clear requirements.
 
-- Run the full planning workflow: clarify → decompose → prioritize → build → review.
-- Write formal tickets in TODO.md.
-- Enforce both gates: planning gate (user approves plan) and review gate (Reviewer approves implementation).
+- Run the full planning workflow: clarify → decompose feature → prioritize → build every related ticket → review feature.
+- Write formal, related tickets in TODO.md using the same unique `Feature: <name>` tag.
+- Enforce both gates: planning gate (user approves plan) and review gate (Reviewer approves the complete feature).
 
 ---
 
@@ -51,10 +51,10 @@ The planning file is the single source of truth for work status. It has six sect
 # TODO
 
 ## Active
-- [ ] 🟡 Ticket title — short description, affected modules
+- [ ] 🟡 Ticket title — short description, affected modules; Feature: Unique feature name
 
 ## Ready
-- [ ] 🟠 Ticket title — short description, affected modules
+- [ ] 🟠 Ticket title — short description, affected modules; Feature: Unique feature name
 
 ## Next
 - [ ] 🔵 Ticket title — short description, affected modules
@@ -63,7 +63,7 @@ The planning file is the single source of truth for work status. It has six sect
 - [ ] ⛔ Ticket title — description and what it's blocked on
 
 ## Review
-- [ ] 🔍 Ticket title — implementation complete, awaiting Scientific Reviewer verdict
+- [ ] 🔍 Ticket title — implementation complete, awaiting feature-level Scientific Reviewer verdict; Feature: Unique feature name
 
 ## Done
 - [x] ✅ Ticket title — completed date (month/year)
@@ -90,9 +90,11 @@ When the Done section grows beyond ~20 items, move the oldest entries to an arch
 ```
 Next ──→ Ready ──→ Active ──→ Review ──→ Done
  🔵       🟠       🟡         🔍        ✅
-                                │
-                                ▼
-                         CHANGES REQUIRED → back to Active
+            │
+            ▼
+          CHANGES REQUIRED → Active
+
+The Builder transitions every ticket sharing a feature tag together only after the complete feature is implemented. The Reviewer approves or rejects that complete feature ticket set together.
 ```
 
 ### Ticket Writing
@@ -100,13 +102,13 @@ Next ──→ Ready ──→ Active ──→ Review ──→ Done
 Each ticket is a single `- [ ]` line in TODO.md. Format:
 
 ```
-- [ ] [marker] Title — one-line description; affected modules in parentheses
+- [ ] [marker] Title — one-line description; affected modules in parentheses; Feature: Unique feature name
 ```
 
 For the Ready section, add acceptance criteria below the ticket line:
 
 ```
-- [ ] 🟠 Implement spectral normalization — add normalization step to `spectra.py` (core)
+- [ ] 🟠 Implement spectral normalization — add normalization step to `spectra.py` (core); Feature: Spectral processing
   - [ ] Acceptance: normalized output preserves area under curve
   - [ ] Acceptance: handles edge case of all-zero input
   - [ ] Acceptance: unit test with analytical case passes
@@ -114,9 +116,9 @@ For the Ready section, add acceptance criteria below the ticket line:
 
 ### Ticket Rules
 
-- One ticket = one self-contained change.
-- Each ticket has clear acceptance criteria.
-- The Builder does not mark tickets Done. On APPROVE, the Scientific Reviewer alone moves the exact reviewed ticket from Review to Done.
+- One ticket = one self-contained change within exactly one feature.
+- Each ticket has clear acceptance criteria, and every ticket for a feature uses an identical, unique `Feature: <name>` tag.
+- The Builder completes every related ticket using TDD before initiating review. On APPROVE, the Scientific Reviewer alone moves the exact reviewed feature ticket set from Review to Done.
 - If a feature is removed from the codebase, remove its tickets.
 - Update TODO.md in the same PR or work item as the related implementation.
 
@@ -147,7 +149,7 @@ Order tickets so each builds on the last:
 4. Test and validation tickets
 5. Documentation tickets
 
-Each ticket should be independently testable and reviewable.
+Each ticket should be independently testable; all tickets for a feature are reviewed together as one completed feature.
 
 ### Step 4: Prioritize
 
@@ -171,9 +173,9 @@ When work progresses, update the marker on the ticket line:
 |---|---|
 | Prioritize | 🔵→🟠 (move to Ready section) |
 | Start working | 🟠→🟡 (move to Active section) |
-| Implementation complete | 🟡→🔍 (mark as in-review) |
-| Reviewer approves | Scientific Reviewer moves 🔍→✅ (move to Done section) |
-| Reviewer requests changes | 🔍→🟡 (back to Active) |
+| Feature implementation complete | all related 🟡→🔍 (mark the feature set in-review) |
+| Reviewer approves | Scientific Reviewer moves all related 🔍→✅ (move feature set to Done) |
+| Reviewer requests changes | affected 🔍→🟡 (back to Active) |
 | Blocked | any→⛔ (move to Blocked section, note the blocker) |
 
 Always update TODO.md in the same commit/PR as the related implementation work.
