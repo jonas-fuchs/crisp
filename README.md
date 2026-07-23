@@ -55,6 +55,7 @@ Always-on context, scoped by file type:
 | **Planner** | The public workflow entry point. Clarifies requests, decomposes one feature into related tickets with a shared unique `Feature: <name>` tag, writes TODO.md, enforces the planning gate, and hands the feature to Builder on "go". Does not implement. |
 | **Builder** | Invoked by Planner. Completes every related feature ticket using an enforced TDD cycle, discovers test/build commands, moves the feature ticket set to Review, and hands the complete feature to Scientific Reviewer. |
 | **Scientific Reviewer** | Invoked by Builder. Reviews the complete feature across six axes and, on APPROVE, restrictively moves the uniquely matched reviewed feature ticket set from Review to Done in `TODO.md`. |
+| **Auditor** | Read-only cross-feature, subsystem, and repository audit. Uses Graphify for structural coverage and relevant specialist skills to report only evidence-backed, independently actionable findings for a normal agent to remediate. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |
 
 ## Skills
