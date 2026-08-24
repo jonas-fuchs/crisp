@@ -94,7 +94,7 @@ Delegate to these skills when the review surface warrants deeper investigation:
 - `security-review` — upload handling, path confinement, SQL, auth, CORS, rate limiting, external APIs.
 - `profiling` — suspected performance bottlenecks or memory issues requiring measured optimisation.
 - `reproducibility-audit` — stochastic reproducibility, environment provenance, dataset identity.
-- `release-summary` — summarize conceptual changes since the last tag, per folder, to understand release scope.
+- `release-summary` — summarize conceptual changes since the last tag as bulleted categories (new features, bug fixes, improvements) to understand release scope.
 
 ## Procedure
 
@@ -104,7 +104,7 @@ Delegate to these skills when the review surface warrants deeper investigation:
 - Confirm every reviewed ticket has the same unique `Feature: <name>` tag.
 - Read `docs/SCIENTIFIC_CONTRACT.md` if it exists.
 - Understand the intended behaviour change and scientific objective.
-- **Optional**: Invoke `release-summary` to see which modules were affected and understand the conceptual scope of changes.
+- **Optional**: Invoke `release-summary` to understand the conceptual scope of changes since the last tag.
 
 ### 2. Review Tests and Validation First
 
