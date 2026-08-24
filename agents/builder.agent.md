@@ -86,6 +86,7 @@ If a feature ticket involves performance, or tests reveal slow or memory-heavy c
 - Remove dead code introduced or exposed by the change.
 - Check for unused imports, stale variables, commented-out blocks.
 - Keep the change focused — every ticket must serve the accepted feature.
+- Remove comments that mention the ticket number or acceptance criteria once the ticket is complete.
 
 ### 7. Update TODO.md
 
