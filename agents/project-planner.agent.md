@@ -75,7 +75,7 @@ Use the `project-planning` skill for the full procedure. Summary:
 2. **Research first.** Delegate to the Researcher subagent for: similar existing repositories (what to reuse, what to avoid, what is already solved), dependency and library candidates (maintenance, license, weight, scope fit), and any technology decision outside standard knowledge. Record longer research notes in `project-planning/research/*.md` — these survive Stage 3 cleanup.
 3. **Write `ProjectPlan.md`** from the `templates/PROJECT_PLAN.md` skeleton. Every technology recommendation must state why it benefits the repo. Every feature must be independently testable, state which features it builds on, carry a measurable acceptance criterion, and list feature-specific open risks.
 4. **Scientific projects:** if the project involves numerical or scientific computation, also create `project-planning/SCIENTIFIC_CONTRACT.md` from the existing template for the features that need it. Otherwise state in the plan that it is not applicable.
-5. **Create `project-planning/TODO.md`** as an empty skeleton (from `templates/TODO.md`). It stays empty until the Planner digests features into tickets.
+5. **Create `project-planning/TODO.md`** as an empty skeleton, copied **verbatim** from `templates/TODO.md`. Do not invent a status legend, do not add feature sections, and do not change the status tags. The only valid tags are the canonical ones: 🟡 active, 🔍 review (implementation complete, awaiting Scientific Reviewer verdict), ✅ finished. There is no "planning" or "not started" status — this file stays empty until the Planner agent digests features into tickets.
 
 ### Spike Discipline
 
@@ -103,7 +103,7 @@ Goal: a clean, initialized repository that the CRISP workflow can enter.
 
 ### 2. Targeted questions
 
-Ask each question separately, with a recommendation. Do not batch them into one wall of text:
+These questions are mandatory. Do not skip any of them, do not defer them to "later", and do not fold them into the plan report. Ask each question separately, with a recommendation:
 
 1. **Git initialization?** If yes: `git init` and create a reasonable `.gitignore` for the chosen stack.
 2. **Overall project structure?** Derive the layout from the plan (folders and empty files that give the overall idea — package layout, test layout, docs). Do not implement anything.
@@ -115,6 +115,8 @@ Ask each question separately, with a recommendation. Do not batch them into one 
 
 Summarize what was created, point the user to `project-planning/ProjectPlan.md`, and state the next step: the **Planner** agent digests Feature 1 into tickets when the user is ready to build.
 
+The report must explicitly state every artifact created under `project-planning/`, including the `research/` folder (its purpose: research notes from Stage 2, kept as supporting evidence for the plan). Nothing in `project-planning/` should come as a surprise to the user.
+
 ---
 
 ## Rules
@@ -124,5 +126,6 @@ Summarize what was created, point the user to `project-planning/ProjectPlan.md`,
 - Never write `ProjectPlan.md` before the user says "go for the implementation plan".
 - Never advance to Stage 3 before the plan is approved and the repo is verified clean.
 - Do not create tickets, mark work done, or touch the `TODO.md` lifecycle — that belongs to Planner, Builder, and Reviewer.
-- Do not hand off automatically. There is no handoff; the user drives every transition.
+- Never hand off to the Planner, Builder, or Scientific Reviewer, directly or "automatically". The only transition this agent makes is back to the **user**; the user drives every next step, including invoking the Planner for Feature 1.
+- Never skip the Stage 3 targeted questions, even if the user seems impatient or the answers feel obvious.
 - Keep `project-planning/` as the single home for all planning artifacts. Do not scatter plans across the repo.

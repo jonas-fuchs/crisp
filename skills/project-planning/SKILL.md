@@ -56,7 +56,8 @@ Features are independently testable implementation steps. If a feature cannot be
 ## Procedure
 
 1. **Create the planning folder** `project-planning/` at the project root with `ProjectPlan.md`, `TODO.md` (empty skeleton), and — for scientific projects — `SCIENTIFIC_CONTRACT.md`.
-2. **Run the research set** (above) via the Researcher subagent; write notes to `project-planning/research/`.
+   - `TODO.md` is copied **verbatim** from `templates/TODO.md` and stays empty. Never invent a status legend or add sections; the only valid tags are 🟡 active, 🔍 review, ✅ finished. There is no "planning / not started" status.
+2. **Run the research set** (above) via the Researcher subagent; write notes to `project-planning/research/` (one file per topic). Creating this folder is expected — state it explicitly in the plan report so the user knows what it is for.
 3. **Write `ProjectPlan.md`** from `templates/PROJECT_PLAN.md`. Sections may be `none` if not applicable — say `none`, do not delete the section.
 4. **Run spikes** only for questions that block a plan decision; record conclusions in the plan.
 5. **Present the plan and stop.** Iterate on user feedback within Stage 2. Do not advance to repository initialization.
