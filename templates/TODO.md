@@ -1,39 +1,20 @@
 # TODO
 
-## Active
+<!-- One section per feature. Feature status: 🟡 active | 🔍 review | ✅ finished -->
+<!-- Every ticket belongs to exactly one feature section; nothing else is tracked. -->
+<!-- Archive ✅ finished features to TODO-archive.md when this file exceeds ~20 sections. -->
 
-<!-- Tickets being worked on right now. Every active ticket belongs to one feature. -->
-<!-- Marker: 🟡 -->
-<!-- - [ ] 🟡 Title — description; affected modules in parentheses; Feature: Unique feature name -->
+## 🟡 Feature: Example feature
 
-## Ready
+- [ ] Ticket title — short description, affected modules
+  - [ ] Acceptance: measurable condition
+  - [ ] Acceptance: measurable condition
+- [ ] Ticket title — short description, affected modules
 
-<!-- Prioritized tickets ready to be picked up. -->
-<!-- Marker: 🟠 -->
-<!-- - [ ] 🟠 Title — description; affected modules in parentheses; Feature: Unique feature name -->
-<!--   - [ ] Acceptance: ... -->
-<!--   - [ ] Acceptance: ... -->
+## 🔍 Feature: Another feature
 
-## Next
+- [ ] Ticket title — implementation complete, awaiting Scientific Reviewer verdict
 
-<!-- Triaged tickets not yet prioritized for a sprint. -->
-<!-- Marker: 🔵 -->
-<!-- - [ ] 🔵 Title — description; affected modules in parentheses; Feature: Unique feature name -->
+## ✅ Feature: Finished feature
 
-## Blocked
-
-<!-- Tickets that cannot proceed — waiting on a dependency. -->
-<!-- Marker: ⛔ -->
-<!-- - [ ] ⛔ Title — description; blocked on: [reason]; Feature: Unique feature name -->
-
-## Review
-
-<!-- Complete feature ticket sets awaiting one Scientific Reviewer verdict. -->
-<!-- Marker: 🔍 -->
-<!-- - [ ] 🔍 Title — description; affected modules in parentheses; Feature: Unique feature name -->
-
-## Done
-
-<!-- Completed and reviewed feature tickets. Move to TODO-archive.md when this section exceeds ~20 items. -->
-<!-- Marker: ✅ -->
-<!-- - [x] ✅ Title — completed (month/year); Feature: Unique feature name -->
+- [x] Ticket title — completed (month/year)

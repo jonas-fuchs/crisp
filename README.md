@@ -16,7 +16,10 @@ VS Code Copilot customizations for scientific Python: instructions, agents, skil
 ## Workflow
 
 ```
-User request
+New project idea
+     │
+     ▼
+Project Planner agent           ← greenfield only: brainstorm, research, ProjectPlan.md, repo init
      │
      ▼
 Planner agent                   ← clarify, grill-me if needed, decompose, write TODO.md
@@ -27,7 +30,7 @@ Builder agent                   ← completes related feature tickets with TDD
      │
      ▼  [Review Gate: Scientific Reviewer reviews the complete feature]
      │
-Done (TODO.md feature ticket set → Done)
+Done (TODO.md feature marked ✅ finished)
 ```
 
 ### Work Modes
@@ -52,9 +55,10 @@ Always-on context, scoped by file type:
 
 | Agent | Role |
 |---|---|
-| **Planner** | The public workflow entry point. Clarifies requests, decomposes one feature into related tickets with a shared unique `Feature: <name>` tag, writes TODO.md, enforces the planning gate, and hands the feature to Builder on "go". Does not implement. |
-| **Builder** | Invoked by Planner. Completes every related feature ticket using an enforced TDD cycle, discovers test/build commands, moves the feature ticket set to Review, and hands the complete feature to Scientific Reviewer. |
-| **Scientific Reviewer** | Invoked by Builder. Reviews the complete feature across six axes and, on APPROVE, restrictively moves the uniquely matched reviewed feature ticket set from Review to Done in `TODO.md`. |
+| **Planner** | The public workflow entry point. Clarifies requests, decomposes one feature into related tickets under a unique `Feature: <name>` section, writes TODO.md, enforces the planning gate, and hands the feature to Builder on "go". Does not implement. |
+| **Project Planner** | Entry point for greenfield projects only. Three fixed stages: user discussion → implementation plan (`project-planning/ProjectPlan.md`, researched via the Researcher) → repository initialization (cleanup of spike code, git init, structure scaffold, instructions, license, packaging). Never implements project code; the only exception is throwaway spike code in `spikes/`. Hands back to the user — the Planner digests plan features into tickets. |
+| **Builder** | Invoked by Planner. Completes every related feature ticket using an enforced TDD cycle, discovers test/build commands, marks the feature 🔍 review, and hands the complete feature to Scientific Reviewer. |
+| **Scientific Reviewer** | Invoked by Builder. Reviews the complete feature across six axes and, on APPROVE, restrictively marks the uniquely matched feature ✅ finished in `TODO.md`. |
 | **Auditor** | Read-only cross-feature, subsystem, and repository audit. Uses Graphify for structural coverage and relevant specialist skills to report only evidence-backed, independently actionable findings for a normal agent to remediate. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |
 
@@ -64,6 +68,7 @@ Always-on context, scoped by file type:
 |---|---|
 | `grill-me` | Task is underspecified — ask targeted questions before planning |
 | `delivery-planning` | Decompose a feature into tickets, manage TODO.md lifecycle |
+| `project-planning` | Write a researched implementation plan for a NEW project (Project Planner, Stage 2) |
 | `scientific-testing` | Write tests with TDD and independent scientific validation |
 | `scientific-validation` | Validate numerical computations against independent references |
 | `software-quality-audit` | 6-axis code review before merge |
@@ -77,4 +82,5 @@ Always-on context, scoped by file type:
 ## Templates
 
 - **`SCIENTIFIC_CONTRACT.md`** — pre-implementation contract for numerical work: equations, units, shapes, tolerances, validation sources, stochastic policy, data provenance.
-- **`TODO.md`** — sprint planning file (Active / Ready / Next / Blocked / Review / Done).
+- **`TODO.md`** — planning file: one section per feature, tagged 🟡 active / 🔍 review / ✅ finished.
+- **`PROJECT_PLAN.md`** — greenfield implementation plan skeleton (similar repos, technologies, MVP, features with dependencies and acceptance criteria, open risks). Used by the Project Planner at `project-planning/ProjectPlan.md`.

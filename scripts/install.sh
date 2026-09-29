@@ -29,6 +29,7 @@ MANIFEST=(
     "agents/reviewer.agent.md:agents/reviewer.agent.md"
     "agents/researcher.agent.md:agents/researcher.agent.md"
     "agents/auditor.agent.md:agents/auditor.agent.md"
+    "agents/project-planner.agent.md:agents/project-planner.agent.md"
     "skills/scientific-testing/SKILL.md:skills/scientific-testing/SKILL.md"
     "skills/software-quality-audit/SKILL.md:skills/software-quality-audit/SKILL.md"
     "skills/architecture-audit/SKILL.md:skills/architecture-audit/SKILL.md"
@@ -37,11 +38,13 @@ MANIFEST=(
     "skills/scientific-validation/SKILL.md:skills/scientific-validation/SKILL.md"
     "skills/grill-me/SKILL.md:skills/grill-me/SKILL.md"
     "skills/delivery-planning/SKILL.md:skills/delivery-planning/SKILL.md"
+    "skills/project-planning/SKILL.md:skills/project-planning/SKILL.md"
     "skills/diagnose/SKILL.md:skills/diagnose/SKILL.md"
     "skills/profiling/SKILL.md:skills/profiling/SKILL.md"
     "skills/graphify/SKILL.md:skills/graphify/SKILL.md"
     "templates/SCIENTIFIC_CONTRACT.md:templates/SCIENTIFIC_CONTRACT.md"
     "templates/TODO.md:templates/TODO.md"
+    "templates/PROJECT_PLAN.md:templates/PROJECT_PLAN.md"
 )
 
 # --- Flags ------------------------------------------------------------------

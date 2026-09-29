@@ -37,78 +37,71 @@ Use when the goal is exploration, prototyping, or trying algorithms where the ou
 
 Use when the goal is a production deliverable with clear requirements.
 
-- Run the full planning workflow: clarify → decompose feature → prioritize → build every related ticket → review feature.
-- Write formal, related tickets in TODO.md using the same unique `Feature: <name>` tag.
+- Run the full planning workflow: clarify → decompose feature → build every related ticket → review feature.
+- Write formal, related tickets in TODO.md under one unique `Feature: <name>` section.
 - Enforce both gates: planning gate (user approves plan) and review gate (Reviewer approves the complete feature).
 
 ---
 
 ## TODO.md Structure
 
-The planning file is the single source of truth for work status. It has six sections:
+The planning file is the single source of truth for work status. It contains one section per feature; each feature carries exactly one status tag:
 
 ```markdown
 # TODO
 
-## Active
-- [ ] 🟡 Ticket title — short description, affected modules; Feature: Unique feature name
+## 🟡 Feature: Example feature
 
-## Ready
-- [ ] 🟠 Ticket title — short description, affected modules; Feature: Unique feature name
+- [ ] Ticket title — short description, affected modules
+  - [ ] Acceptance: measurable condition
+- [ ] Ticket title — short description, affected modules
 
-## Next
-- [ ] 🔵 Ticket title — short description, affected modules
+## 🔍 Feature: Another feature
 
-## Blocked
-- [ ] ⛔ Ticket title — description and what it's blocked on
+- [ ] Ticket title — implementation complete, awaiting Scientific Reviewer verdict
 
-## Review
-- [ ] 🔍 Ticket title — implementation complete, awaiting feature-level Scientific Reviewer verdict; Feature: Unique feature name
+## ✅ Feature: Finished feature
 
-## Done
-- [x] ✅ Ticket title — completed date (month/year)
+- [x] Ticket title — completed (month/year)
 ```
 
-### Section Semantics
+### Status Tags
 
-| Section | Marker | Meaning |
-|---|---|---|
-| Active | 🟡 | Being worked on right now |
-| Ready | 🟠 | Prioritized, ready to pick up |
-| Next | 🔵 | Triaged, not yet prioritized |
-| Blocked | ⛔ | Cannot proceed — waiting on a dependency |
-| Done | ✅ | Completed and reviewed |
+| Tag | Meaning |
+|---|---|
+| 🟡 active | Feature is being worked on right now |
+| 🔍 review | Implementation complete, awaiting one Scientific Reviewer verdict |
+| ✅ finished | Completed and reviewed |
 
 ### Archival
 
-When the Done section grows beyond ~20 items, move the oldest entries to an archive file (`TODO-archive.md`). This keeps the active planning file scannable while preserving project history.
+When the file grows beyond ~20 feature sections, move the oldest ✅ finished features to an archive file (`TODO-archive.md`). This keeps the active planning file scannable while preserving project history.
 
 ---
 
-## Ticket Lifecycle
+### Feature Lifecycle
 
 ```
-Next ──→ Ready ──→ Active ──→ Review ──→ Done
- 🔵       🟠       🟡         🔍        ✅
-            │
-            ▼
-          CHANGES REQUIRED → Active
+🟡 active ──→ 🔍 review ──→ ✅ finished
+    ▲              │
+    └──────────────┘
+     CHANGES REQUIRED
 
-The Builder transitions every ticket sharing a feature tag together only after the complete feature is implemented. The Reviewer approves or rejects that complete feature ticket set together.
+The Builder moves a feature to 🔍 review only after every ticket for it is implemented. The Reviewer approves or rejects the complete feature together.
 ```
 
 ### Ticket Writing
 
-Each ticket is a single `- [ ]` line in TODO.md. Format:
+Each ticket is a single `- [ ]` line under its feature section. Format:
 
 ```
-- [ ] [marker] Title — one-line description; affected modules in parentheses; Feature: Unique feature name
+- [ ] Title — one-line description; affected modules in parentheses
 ```
 
-For the Ready section, add acceptance criteria below the ticket line:
+Add acceptance criteria below the ticket line:
 
 ```
-- [ ] 🟠 Implement spectral normalization — add normalization step to `spectra.py` (core); Feature: Spectral processing
+- [ ] Implement spectral normalization — add normalization step to `spectra.py` (core)
   - [ ] Acceptance: normalized output preserves area under curve
   - [ ] Acceptance: handles edge case of all-zero input
   - [ ] Acceptance: unit test with analytical case passes
@@ -117,8 +110,8 @@ For the Ready section, add acceptance criteria below the ticket line:
 ### Ticket Rules
 
 - One ticket = one self-contained change within exactly one feature.
-- Each ticket has clear acceptance criteria, and every ticket for a feature uses an identical, unique `Feature: <name>` tag.
-- The Builder completes every related ticket using TDD before initiating review. On APPROVE, the Scientific Reviewer alone moves the exact reviewed feature ticket set from Review to Done.
+- Each ticket has clear acceptance criteria, and every ticket for a feature lives under that feature's unique section.
+- The Builder completes every related ticket using TDD before initiating review. On APPROVE, the Scientific Reviewer alone marks the reviewed feature ✅ finished.
 - If a feature is removed from the codebase, remove its tickets.
 - Update TODO.md in the same PR or work item as the related implementation.
 
@@ -151,13 +144,9 @@ Order tickets so each builds on the last:
 
 Each ticket should be independently testable; all tickets for a feature are reviewed together as one completed feature.
 
-### Step 4: Prioritize
+### Step 4: Order Tickets
 
-Place tickets in the correct section:
-
-- What must be done first → Ready
-- What comes after → Next
-- What can't start yet → Blocked (with reason)
+Write the feature as one section tagged 🟡 active, with tickets ordered so each builds on the last. Note any dependency that prevents starting the feature at the top of the section.
 
 ### Step 5: Present the Plan
 
@@ -167,15 +156,12 @@ Present the plan to the user. Wait for "go" before implementation begins (Delive
 
 ## Ticket Status Updates
 
-When work progresses, update the marker on the ticket line:
+When work progresses, update the status tag on the feature heading:
 
-| Action | Marker change |
+| Action | Status change |
 |---|---|
-| Prioritize | 🔵→🟠 (move to Ready section) |
-| Start working | 🟠→🟡 (move to Active section) |
-| Feature implementation complete | all related 🟡→🔍 (mark the feature set in-review) |
-| Reviewer approves | Scientific Reviewer moves all related 🔍→✅ (move feature set to Done) |
-| Reviewer requests changes | affected 🔍→🟡 (back to Active) |
-| Blocked | any→⛔ (move to Blocked section, note the blocker) |
+| Feature implementation complete | 🟡→🔍 (Builder marks the feature in-review) |
+| Reviewer approves | 🔍→✅ (Scientific Reviewer marks the feature finished and checks its tickets) |
+| Reviewer requests changes | 🔍→🟡 (back to active) |
 
 Always update TODO.md in the same commit/PR as the related implementation work.
