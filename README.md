@@ -33,6 +33,8 @@ Builder agent                   ← completes related feature tickets with TDD
 Done (TODO.md feature marked ✅ finished)
 ```
 
+For Snakemake features, the Planner can consult Snakemake Expert when workflow behavior or version-specific design affects scope or acceptance criteria. The Builder can consult it when implementation details are unclear. In these delegated consultations, the Expert provides guidance and official-source evidence; the Planner or Builder remains responsible for the plan, implementation, and validation. Snakemake Expert is also available for direct user requests.
+
 ### Work Modes
 
 - **Discovery** — explore, prototype, tune. Skip planning ceremony. Open one TODO.md entry, then go to Builder.
@@ -50,14 +52,18 @@ Always-on context, scoped by file type:
 | `python.instructions.md` | `*.py` | Imports, module layout, type hints, dead code rules |
 | `tests.instructions.md` | `tests/**/*.py` | TDD cycle, test structure, mocking, anti-patterns |
 | `scientific.instructions.md` | `*.py`, `*.ipynb` | Units, shapes, dtypes, tolerances, validation independence, reproducibility |
+| `snakemake.instructions.md` | `Snakefile`, `snakefile`, `*.smk` | Version-aware workflow authoring, configuration, resources, reproducibility, and validation |
+
+Snakemake support in this profile is packaged as a user-invocable specialist agent plus a scoped workflow instruction.
 
 ## Agents
 
 | Agent | Role |
 |---|---|
-| **Planner** | The public workflow entry point. Clarifies requests, decomposes one feature into related tickets under a unique `Feature: <name>` section, writes TODO.md, enforces the planning gate, and hands the feature to Builder on "go". Does not implement. |
+| **Snakemake Expert** | User-invocable Snakemake workflow specialist for design, implementation, troubleshooting, and version-aware validation. Provides focused, advisory guidance when consulted by Planner or Builder. |
+| **Planner** | The public workflow entry point. Clarifies requests, consults Snakemake Expert when workflow details affect scope, decomposes one feature into related tickets under a unique `Feature: <name>` section, writes TODO.md, enforces the planning gate, and hands the feature to Builder on "go". Does not implement. |
 | **Project Planner** | Entry point for greenfield projects only. Three fixed stages: user discussion → implementation plan (`project-planning/ProjectPlan.md`, researched via the Researcher) → repository initialization (cleanup of spike code, git init, structure scaffold, instructions, license, packaging). Never implements project code; the only exception is throwaway spike code in `spikes/`. Hands back to the user — the Planner digests plan features into tickets. |
-| **Builder** | Invoked by Planner. Completes every related feature ticket using an enforced TDD cycle, discovers test/build commands, marks the feature 🔍 review, and hands the complete feature to Scientific Reviewer. |
+| **Builder** | Invoked by Planner. Completes every related feature ticket using an enforced TDD cycle, consults Snakemake Expert for unclear workflow details, discovers test/build commands, marks the feature 🔍 review, and hands the complete feature to Scientific Reviewer. |
 | **Scientific Reviewer** | Invoked by Builder. Reviews the complete feature across six axes and, on APPROVE, restrictively marks the uniquely matched feature ✅ finished in `TODO.md`. |
 | **Auditor** | Read-only cross-feature, subsystem, and repository audit. Uses Graphify for structural coverage and relevant specialist skills to report only evidence-backed, independently actionable findings for a normal agent to remediate. |
 | **Researcher** | Literature research (with `web` tool) and bioinformatics pre-implementation review. |

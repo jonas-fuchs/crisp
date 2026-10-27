@@ -1,52 +1,20 @@
 ---
 name: CRISP general engineering
-description: Cross-project engineering invariants for scientific Python work.
+description: "Cross-project engineering guardrails; excludes the CRISP specialist workflow."
 applyTo: "**"
 ---
 
 # General Engineering Instructions
 
-These invariants apply to all work in every project. Language- and task-specific rules live in scoped instruction files (`python.instructions.md`, `scientific.instructions.md`, `tests.instructions.md`).
+These are baseline engineering guardrails for normal Copilot agent mode. Language- and task-specific rules live in scoped instruction files (`python.instructions.md`, `scientific.instructions.md`, `tests.instructions.md`).
 
 ---
 
-## Workflow
+## Workflow Scope
 
-CRISP custom agents follow a two-gate, feature-level workflow: Plan → Build → Review.
+This file does not activate or impose the CRISP Planner → Builder → Reviewer workflow. Do not create `TODO.md` feature tickets, require a planning approval gate or formal TDD cycle, or perform a specialist review handoff based on this file alone. Those requirements apply only when the corresponding CRISP custom agent is invoked, or when the user explicitly requests that workflow.
 
-```
-Plan ──→ user "go" ──→ Build ──→ Scientific Review ──→ done | changes required
-```
-
-### Scope
-
-The gates below are mandatory whenever the Planner, Builder, or Scientific Reviewer custom agent is invoked, directly or through a handoff. Their responsibilities form one workflow: Planner → Builder → Scientific Reviewer.
-
-They do not impose a ticket ceremony, formal TDD cycle, or review handoff on normal Copilot agent mode. In normal mode, choose planning, tests, and validation proportionately to the change. Use TDD when the user requests it or when the change is substantive enough to benefit from it; trivial, low-risk edits may use a lighter validation check.
-
-### Gates
-
-1. **Planning gate**: In Delivery mode, the Planner presents the plan and stops. The user reviews and says "go" before the Builder begins. Discovery work may skip this gate.
-2. **Review gate**: The Builder completes every ticket for the planned feature, then hands the complete feature to the Scientific Reviewer. The Reviewer approves it before the feature is marked ✅ finished in `TODO.md`.
-
-### Work Modes
-
-- **Discovery**: question → hypothesis → experiment → evidence → decision. May begin with characterization, experiments, or reference construction. It is not forced through TDD or ticket ceremony.
-- **Delivery**: plan → build → scientific review → done. Requires a measurable acceptance condition and an independent validation approach before starting.
-
-### TODO.md
-
-`TODO.md` is the planning source of truth. Structure — one section per feature, each with exactly one status tag:
-
-```
-## 🟡 Feature: <name>   # active
-## 🔍 Feature: <name>   # review
-## ✅ Feature: <name>   # finished
-```
-
-For Delivery work, all tickets of a feature live under its feature section. The Builder works the complete feature ticket set under TDD before review; the Reviewer reviews and approves or rejects that feature together.
-
-Archive completed work into `docs/plans/`, GitHub issues, `CHANGELOG.md`, or `docs/archive/`. Git history preserves previous versions — do not accumulate completed items indefinitely.
+In normal agent mode, choose planning, tests, and validation proportionately to the change. Use TDD when the user requests it or when the change is substantive enough to benefit from it; trivial, low-risk edits may use a lighter validation check.
 
 ---
 

@@ -1,3 +1,6 @@
 ide
 config.json
 logs/
+session-state/
+installed-plugins
+TODO.md
